@@ -1,0 +1,59 @@
+body {
+  background-color: #0E1B35;
+  background-size: 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.page-intro {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.page-title {
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  font-size: 4em;
+  margin: 30px 0px 10px 0px;
+}
+
+.page-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1em;
+  text-align: center;
+}
+
+
+.navbar-nav {
+  margin: auto;
+}
+
+.navbar-nav li a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 10px 20px;
+  transition: color .3s ease;
+}
+
+.navbar-light .navbar-toggler {
+  color: white !important;
+  margin: auto;
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url(../img/menu.png);
+}
+
+.navbar-collapse .nav-item .nav-link, .navbar-collapse .nav-item.active .nav-link {
+  color: white;
+  text-align: center !important;
+  margin: 0px 20px;
+}
+
+.navbar-collapse .nav-item .nav-link:hover:hover, .navbar-collapse .nav-item.active .nav-link:hover:hover {
+  color: #3ECDFF;
+}
