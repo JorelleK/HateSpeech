@@ -1,13 +1,321 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>"#hackislamophobia Web Application to track and analyze Islamophobia hate speech online"</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
-    <script src="/scripts/app.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <title>#hackislamophobia Web Application to track and analyze Islamophobia hate speech online</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34590577-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-34590577-5');
+  </script>
+  <script>window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));</script>
+
+  <style>
+
+  body {
+  background-color: #0E1B35;
+  background-size: 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: white;
+      height: 90%;
+    }
+
+    .page-intro {
+    margin-top: 10px;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  .title {
+    font-weight: 150;
+    color: green;
+    text-align: center;
+    font-size: 3em;
+    margin: 7px 0px 5px 0px;
+  }
+
+  .subtitle {
+    color: #191970;
+    font-size: 4em;
+
+  }
+
+  .download {
+  width: 70%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px 25px;
+  transition: all .3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.latest-tweets {
+  text-align: center;
+  color: red;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+
+    /* Social buttons */
+.socialnetwork {
+  display: block;
+  margin: 10px 0 10px;
+  text-align: center;
+}
+
+.socialnetwork .fb-share-button, .socialnetwork .twitter-button {
+  display: inline-block;
+}
+
+/*---------- Statistic ----------*/
+.counts {
+  margin-bottom: 30px;
+}
+
+.count-boxes {
+  padding: 10px 20px;
+  border-top: 4px solid;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.count-boxes h1 {
+  font-size: 3em;
+  color: white;
+  font-weight: 300;
+  margin-bottom: 0px;
+}
+
+.count-boxes .hashtag {
+  font-weight: 600;
+  color: black;
+  font-size: 1em;
+  margin-bottom: 30px;
+}
+
+.green {
+  background-color: #7CFC00;
+  border-color: #ADFF2F;
+  background-image: url(../img/birdy-10.png);
+  background-position: right bottom;
+  background-size: 30%;
+  background-repeat: no-repeat;
+}
+
+.cyan {
+  background-color: #7FFFD4;
+  border-color: #00FFFF;
+}
+
+.yellow {
+  background-color: #F4CA19;
+  border-color: #CEAB17;
+}
+
+.red {
+  background-color: #FA8072;
+  border-color: #DC143C;
+}
+
+.yellow, .red, .cyan, .green {
+  background-image: url(../img/tweetimg.png);
+  background-position: right bottom;
+  background-size: 30%;
+  background-repeat: no-repeat;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Counts  */
+.total-counts {
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #3ECDFF;
+  border-radius: 5px;
+}
+
+.total-counts p {
+  margin: 0px;
+}
+
+.total-counts .total-number {
+  font-size: 30px;
+  color: #3ECDFF;
+  font-weight: 600;
+}
+
+
+
+
+    /*---------- FOOTER ----------*/
+.footer {
+  padding: 20px;
+}
+
+.footer .mailbox {
+  background-color: rgba(62, 205, 255, 0.1);
+  border: 1px solid rgba(62, 205, 255, 0.3);
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+
+.footer .credit {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 14px;
+  color: #56729B;
+}
+
+
+.footer .disclaimer {
+  font-size: 10px;
+  color: #56729B;
+  text-align: center;
+}
+
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Hate Speech Tracker App</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/more">More Info</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Hate Speech Tracker App</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="#section4">More Info</a></li>
+      </ul><br>
+    </div>
+    <br>
+
+    <div class="col-sm-9">
+      <div class="well">
+        <h4 class="title">No to Islamophobic hate speech!</h4>
+        <h4 class="subtitle">Dashboard</h4>
+
+        <div class="socialnetwork">
+        <div class="fb-share-button fb_iframe_widget" data-href="http://tobedetermined.com" data-layout="button_count" data-size="small" data-mobile-iframe="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=46&amp;href=http%3A%2F%2Fnoislamophobia.com%2F&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=small"><span style="vertical-align: bottom; width: 77px; height: 20px;"><iframe name="f2e7efe713bf0c4" width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.10/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df1d3a8e0442601c%26domain%3Dnoislamophobia.com%26origin%3Dhttp%253A%252F%252Fnoislamophobia.com%252Ff14c232e513bfc4%26relation%3Dparent.parent&amp;container_width=46&amp;href=http%3A%2F%2Fnoislamophobia.com%2F&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=small" style="border: none; visibility: visible; width: 77px; height: 20px;" class=""></iframe></span></div>
+        <a href="https://twitter.com/intent/tweet?screen_name=HackChallenge3&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+      </div>
+
+      </div>
+      <div class="row">
+        <div id="app">
+            <!-- This div's content will be managed by React. -->
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container footer">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mailbox">
+          <!-- Begin MailChimp Signup Form -->
+            <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+            <style type="text/css">
+                  #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+            </style>
+            <div id="mc_embed_signup">
+              <form action="https://gmail.us2.list-manage.com/subscribe/post?u=6c45e8629a3bd1dbea5a13ede&amp;id=4165f7b67d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+  	               <label for="mce-EMAIL">Sign up for more update!</label>
+  	                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6c45e8629a3bd1dbea5a13ede_4165f7b67d" tabindex="-1" value=""></div>
+                      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                    </div>
+                  </form>
+            </div>
+          <!--End mc_embed_signup-->
+        </div>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p class="credit"> Powered by <a class="jorelleKebeto" href="https://jorellekebeto.com" target="_blank">Jorelle Kebeto</a></p>
+          <p class="disclaimer">Important note: I used the free developer API to pull the tweets.</p>
+        </div>
+     </div>
+  </div>
+</div>
+
+
+</body>
 </html>
